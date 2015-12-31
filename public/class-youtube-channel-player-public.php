@@ -100,4 +100,13 @@ class Youtube_Channel_Player_Public {
 
 	}
 
+	
+	
+	/**
+	 * Register the shortcode for embedding yotube channel to post/page
+	 *
+	 */
+	public function embed_ytb_channel($atts, $content = null) {
+		
+	}
 }

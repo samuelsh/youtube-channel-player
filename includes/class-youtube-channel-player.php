@@ -169,6 +169,9 @@ class Youtube_Channel_Player {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		
+		//  Public ShortCodes
+		$this->loader->add_shortcode('channel', $plugin_public, 'embed_ytb_channel');	
 
 	}
 
