@@ -73,7 +73,7 @@ class Youtube_Channel_Player_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'css/plugin-name-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'css/youtube-channel-player-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,7 +96,7 @@ class Youtube_Channel_Player_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'js/plugin-name-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'js/youtube-channel-player-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 

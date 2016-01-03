@@ -73,7 +73,7 @@ class Youtube_Channel_Player_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'css/plugin-name-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'css/youtube-channel-player-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,7 +96,7 @@ class Youtube_Channel_Player_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'js/youtube-channel-player-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -107,6 +107,8 @@ class Youtube_Channel_Player_Public {
 	 *
 	 */
 	public function embed_ytb_channel($atts, $content = null) {
+		
+		return "Youbue Channel Shortcut";
 		
 	}
 }

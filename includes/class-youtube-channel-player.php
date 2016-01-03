@@ -68,7 +68,7 @@ class Youtube_Channel_Player {
 	 */
 	public function __construct() {
 
-		$this->Youtube_Channel_Player = 'plugin-name';
+		$this->Youtube_Channel_Player = 'youtube-channel-player';
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();
