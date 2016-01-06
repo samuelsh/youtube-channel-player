@@ -107,8 +107,22 @@ class Youtube_Channel_Player_Public {
 	 *
 	 */
 	public function embed_ytb_channel($atts, $content = null) {
+		$out = "";	
+		shortcode_atts(array(
+				"channel_id" => ''
+		), $atts);
+		$channel_list = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=".$atts['channel_id']."&key=AIzaSyAi1i-MN1M-jiSzV1y2qTydlHmM4ZFwjJY&maxResults=50";
+		$curl = curl_init($channel_list);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		$return = curl_exec($curl);
+		curl_close($curl);
+		$ytb_channel_decoded = json_decode($return, true);
+		$playlists_array = $ytb_channel_decoded['items'];
 		
-		return "Youbue Channel Shortcut";
-		
+		foreach ($playlists_array as $playlist){
+			$out .= '<h1>'.$playlist['snippet']['title'].'</h1>';
+			$out .= '<iframe src="http://www.youtube.com/embed?listType=playlist&amp;list='.$playlist['id'].'" width="100%" height="500" frameborder="0"></iframe>';
+		}
+	return $out;	
 	}
 }
