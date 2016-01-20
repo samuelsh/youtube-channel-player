@@ -2,3 +2,30 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+
+#outer_tube {
+
+	width:100%;
+} 
+
+#inner_tube {
+	 
+	 width:380px; 
+	 height:320px; 
+	 float:right;
+ }
+
+#tube_sidebar {
+	
+	height:320px; 
+	width:137px;
+	overflow-y:scroll;
+	float:left
+}
+
+.tube_thumbs {
+	
+	cursor:pointer; 
+	padding-bottom:5px;
+} 

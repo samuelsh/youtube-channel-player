@@ -119,10 +119,15 @@ class Youtube_Channel_Player_Public {
 		$ytb_channel_decoded = json_decode($return, true);
 		$playlists_array = $ytb_channel_decoded['items'];
 		
+		$out .= '<div id="outer_tube">';
+		$out .= '<div id="inner_tube">';		
+		$out .= '</div>';
+		$out .= '<div id="tube_sidebar">';
 		foreach ($playlists_array as $playlist){
-			$out .= '<h1>'.$playlist['snippet']['title'].'</h1>';
-			$out .= '<iframe src="http://www.youtube.com/embed?listType=playlist&amp;list='.$playlist['id'].'" width="100%" height="500" frameborder="0"></iframe>';
+			$out .= '<img class="tube_thumbs" src="'.$playlist['snippet']['thumbnails']['default']['url'].'" id="'.$playlist['id'].'">';
 		}
+		$out .= '</div>';
+		$out .= '</div>';
 	return $out;	
 	}
 }

@@ -28,5 +28,16 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-
+	
+	
+	$(window).load( function() {	
+		var playlist_id = $(".tube_thumbs").first().attr("id"); // loading first playlist in the list
+		$("#inner_tube").append('<iframe src="http://www.youtube.com/embed?listType=playlist&amp;list=' + playlist_id + '" width="100%" height="320px" frameborder="0" allowfullscreen></iframe>');	
+		
+		$(".tube_thumbs").click(function(){
+			var playlist_id = $(this).attr("id");
+			console.log(playlist_id);
+			$("#inner_tube iframe").replaceWith('<iframe src="http://www.youtube.com/embed?listType=playlist&amp;list=' + playlist_id + '&amp;autoplay=1" width="100%" height="320px" frameborder="0" allowfullscreen></iframe>');
+		});
+	});
 })( jQuery );
