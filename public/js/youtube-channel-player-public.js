@@ -67,7 +67,8 @@
 		// 4. The API will call this function when the video player is ready.
 		window.onPlayerReady = function(event) {
 			// cue the playlist, to get the video's ids 
-		    event.target.cuePlaylist
+		    console.log("onPlayerReady event triggered: CUE Playlist");
+			window.player.cuePlaylist
 		    ({
 		        listType: 'playlist',
 		        list: window.playlist_id,
@@ -79,15 +80,28 @@
 		// 5. The API calls this function when the player's state changes.
 		
 		window.onPlayerStateChange = function(event) {
+			
+			console.log("onPlayerStateChange event triggered with event type: " + event.data);
 			if(event.data == YT.PlayerState.CUED)
 		    {
-		        var videoList = window.player.getPlaylist();
+				
+				var videoList = window.player.getPlaylist();
 		        // to prevent adding new video and for the randomize
-		        window.videoCount = videoList.length; 
-		        console.log("onPlayerStateChange: List of all videos in playlist: " + videoList);
+		        if( typeof videoList == 'undefined' || videoList == "" ){
+		        	console.warn("onPlayerStateChange: Failed to get playlist! Reloading...");
+		        	window.player.loadPlaylist({
+						listType: 'playlist',
+						list: window.playlist_id,
+		        		
+		        	});
+		        	videoList = window.player.getPlaylist();
+		        	
+		        }
+				window.videoCount = videoList.length; 
+		        console.log("onPlayerStateChange: List of all videos in playlist: " + videoList + ":" + window.videoCount);
 		        // starting playing the playlist from random item
-		        var num = getRandom(1,window.videoCount);
-		        window.player.playVideo();
+		        var num = getRandom(0,window.videoCount - 1);
+		        window.player.playVideoAt(num);
 		    }
 
 //			if(event.data == YT.PlayerState.PLAYING)
@@ -102,25 +116,27 @@
 			
 		    if(event.data == YT.PlayerState.ENDED)	
 		    {
-		        if (window.videoCount == 0){
+				window.videoCount--;
+		        console.log("Video ended. " + window.videoCount + " Items left in playlist");
+		    	if (window.videoCount <= 0){
 		        	console.log("Playlist ended. Loading a new one...");
-		        	loadNewPlaylist();
+		        	loadNewPlaylist(event);
 		        }
-		        
-		        else {
-		        	window.videoCount--;
-		        	event.target.nextVideo();
-		        }
+				window.player.nextVideo();
 		    }
 		};
 		
-		function loadNewPlaylist() {
-			window.player.stopVideo();
+		function loadNewPlaylist(event) {
 			var playlists = $(".tube_thumbs");
 			var playlist_id = $(playlists[Math.floor(Math.random() * playlists.length)]).attr('id'); // getting random playlist from playlists lists
-			console.log('loadNewPlaylist: Playlist selected ' + playlist_id);
+			var total_items = getPlaylistItemsNumber(playlist_id);
+			console.log('loadNewPlaylist: Playlist selected ' + playlist_id + ' with total items: ' + total_items);
+			//window.player.stopVideo();
 			window.player.cuePlaylist({
-				list: playlist_id
+				list: playlist_id,
+				listType: 'playlist',
+				autoplay: 1,
+				index: getRandom(0, total_items)
 				});
 		}
 			
@@ -129,8 +145,11 @@
 			console.log(playlist_id);
 			console.log('Playlist selected from sidebar: ' + playlist_id);
 			window.player.cuePlaylist({
-				list: playlist_id
-				});
+				list: 		playlist_id,
+				listType:   'playlist',
+		        autoplay: 	1,
+		        index:	0
+			});
 //			var videoList = window.player.getPlaylist();
 //			// to prevent adding new video and for the randomize
 //			window.videoCount = videoList.length; 
@@ -140,5 +159,31 @@
 		function getRandom(min, max) {
 			  return Math.floor(Math.random() * (max - min + 1)) + min;
 			}
+	
+	  function getPlaylistItemsNumber(pid){ 
+		  var result = null;  
+		  $.ajax({
+					url: "https://www.googleapis.com/youtube/v3/playlistItems",
+					type: 'get',
+					dataType: 'json',
+					async:	false,
+					data: {
+								part : 'snippet', 
+								maxResults : 2,
+								playlistId : pid,
+								//fields: 'pageInfo(totalResults)',        
+								key: 'AIzaSyAi1i-MN1M-jiSzV1y2qTydlHmM4ZFwjJY', 
+							},
+					success:	function(data) {
+									 window.total = data.pageInfo.totalResults;
+									 console.log("Total items: " + window.total);
+									 result = data;
+				//			             $('#total').html('Total number of clips: ' + total);
+				//			             st = JSON.stringify(data,'',2);
+				//			             $('#area1').val(st);
+								}
+		  });
+		  return result.pageInfo.totalResults;
+	  	}
 	});
 })( jQuery );
