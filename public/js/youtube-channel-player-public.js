@@ -60,6 +60,9 @@
 				playerVars: {
 //					  list: playlist_id,
 //					  listType: 'playlist'
+					  rel: 0,
+					  modestbranding: true,
+					  controls: 0
 				}
 		  });
 		};
@@ -104,15 +107,6 @@
 		        window.player.playVideoAt(num);
 		    }
 
-//			if(event.data == YT.PlayerState.PLAYING)
-//		    {
-//		        var videoList = window.player.getPlaylist();
-//		        // to prevent adding new video and for the randomize
-//		        window.videoCount = videoList.length; 
-//		        console.log("onPlayerStateChange: List of all videos in playlist: " + videoList);
-//		        // starting playing the playlist from random item
-//		        var num = getRandom(1,window.videoCount);
-//		    }
 			
 		    if(event.data == YT.PlayerState.ENDED)	
 		    {
@@ -132,11 +126,13 @@
 			var total_items = getPlaylistItemsNumber(playlist_id);
 			console.log('loadNewPlaylist: Playlist selected ' + playlist_id + ' with total items: ' + total_items);
 			//window.player.stopVideo();
+			var random_video_num = getRandom(0, total_items);
+			window.videoCount = total_items -random_video_num;
 			window.player.cuePlaylist({
 				list: playlist_id,
 				listType: 'playlist',
 				autoplay: 1,
-				index: getRandom(0, total_items)
+				index: random_video_num,
 				});
 		}
 			
