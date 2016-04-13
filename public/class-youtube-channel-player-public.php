@@ -74,6 +74,7 @@ class Youtube_Channel_Player_Public {
 		 */
 
 		wp_enqueue_style( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'css/youtube-channel-player-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'countdown_timer_js', plugin_dir_url( __FILE__ ) . 'js/countdown_timer_js/CSS/jquery.countdownTimer.css', array(), $this->version, 'all' );
 
 	}
 
@@ -97,6 +98,7 @@ class Youtube_Channel_Player_Public {
 		 */
 
 		wp_enqueue_script( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'js/youtube-channel-player-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'countown_timer_js', plugin_dir_url( __FILE__ ) . 'js/countdown_timer_js/jquery.countdownTimer.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -127,7 +129,10 @@ class Youtube_Channel_Player_Public {
 			$out .= '<img class="tube_thumbs" src="'.$playlist['snippet']['thumbnails']['default']['url'].'" id="'.$playlist['id'].'">';
 		}
 		$out .= '</div>';
+		$out .= '<div><button type="button" id="ytb_button" style="background: rgba(27,127,204,.8); margin-top: 50px; margin-left: 140px; width: 180px">'. __('Jump to Random clip') .'</button></div>';
+		$out .= '<div id="countdowntimer" style="margin-top:50px; margin-left:150px;"><span id="future_date"><span></div>';
 		$out .= '</div>';
-	return $out;	
+
+		return $out;	
 	}
 }

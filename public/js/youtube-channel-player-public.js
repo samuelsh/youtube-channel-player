@@ -29,6 +29,52 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 	
+	  $.fn.disableFor = function(mins, secs) {
+		    var i = [],
+		    play = [];
+
+		    this.click(function() {
+		        var selector = $(this),
+		        inDex = $(selector).index(),
+		        prevText = $(selector).text();
+		        i[inDex] = 0;
+		        var inSeconds = mins * 60 + secs;
+
+		        $(selector).prop("disabled", "disabled");
+		        
+		        play[inDex] = setInterval(function() {
+		            if(inSeconds > 60){
+		                inSeconds = inSeconds - 1;
+		                var minutes = Math.floor(inSeconds / 60);
+		                var seconds = inSeconds % 60;
+		                if(minutes >= 1){
+		                    if(seconds.toString().length > 1){
+		                        $(selector).text(minutes + ":" + seconds + " minutes left");
+		                    }else{
+		                        $(selector).text(minutes + ":" + "0" + seconds + " minutes left");
+		                    }
+		                }else{
+		                    $(selector).text(seconds + " seconds left");
+		                }
+		            }else{
+		                if(inSeconds > 1){
+		                    inSeconds = inSeconds - 1;
+		                    if(inSeconds.toString().length > 1){
+		                        $(selector).text(inSeconds + " seconds left");
+		                    }else{
+		                        $(selector).text("0" + inSeconds + " seconds left");
+		                    }
+		                }else{
+		                    $(selector).prop("disabled", "");
+		                    clearInterval(play[inDex]);
+		                    $(selector).text(prevText);
+		                }                              
+		            }
+		        }, 1000);
+		    });
+		};
+		
+	
 	$(window).load( function() {
 		
 		window.player = null;
@@ -152,11 +198,34 @@
 //			console.log("Sidebar: List of all videos in playlist: " + videoList);
 		});
 		
+		$("#ytb_button").click( function(){
+			console.log("Button pressed. Loading new video");
+			loadNewPlaylist();
+			
+			$("#ytb_button").disableFor(0, 10);
+		});
+		
+
+		$("#future_date").countdowntimer({
+			minutes : 100,
+				seconds : 0,
+				size : "lg",
+				timeUp: timeUp
+		});
+
+		
+		function timeUp(){
+			
+			$('#future_date').text('< Put Your Text here >');
+		}
+		
+		
 		function getRandom(min, max) {
 			  return Math.floor(Math.random() * (max - min + 1)) + min;
 			}
 	
-	  function getPlaylistItemsNumber(pid){ 
+		
+		function getPlaylistItemsNumber(pid){ 
 		  var result = null;  
 		  $.ajax({
 					url: "https://www.googleapis.com/youtube/v3/playlistItems",
@@ -181,5 +250,6 @@
 		  });
 		  return result.pageInfo.totalResults;
 	  	}
+	  
 	});
 })( jQuery );
