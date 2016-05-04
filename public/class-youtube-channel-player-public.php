@@ -74,7 +74,8 @@ class Youtube_Channel_Player_Public {
 		 */
 
 		wp_enqueue_style( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'css/youtube-channel-player-public.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'countdown_timer_js', plugin_dir_url( __FILE__ ) . 'js/countdown_timer_js/CSS/jquery.countdownTimer.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'countdown_timer_css', plugin_dir_url( __FILE__ ) . 'js/countdown_timer_js/CSS/jquery.countdownTimer.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'colorbox_css', plugin_dir_url( __FILE__ ) . 'js/jquery-colorbox/colorbox.css', array(), $this->version, 'all' );
 
 	}
 
@@ -99,6 +100,7 @@ class Youtube_Channel_Player_Public {
 
 		wp_enqueue_script( $this->Youtube_Channel_Player, plugin_dir_url( __FILE__ ) . 'js/youtube-channel-player-public.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'countown_timer_js', plugin_dir_url( __FILE__ ) . 'js/countdown_timer_js/jquery.countdownTimer.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'colorbox_js', plugin_dir_url( __FILE__ ) . 'js/jquery-colorbox/jquery.colorbox.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -131,6 +133,21 @@ class Youtube_Channel_Player_Public {
 		$out .= '</div>';
 		$out .= '<div><button type="button" id="ytb_button" style="background: rgba(27,127,204,.8); margin-top: 50px; margin-left: 140px; width: 180px">'. __('Jump to Random clip') .'</button></div>';
 		$out .= '<div id="countdowntimer" style="margin-top:50px; margin-left:150px;"><span id="future_date"><span></div>';
+		$out .= '<p>';
+		$out .= 		'<a class="inline cboxElement" href="#inline_content">Report Video</a>';
+		$out .=	'</p>';
+		$out .=			'<div style="display:none" >';
+		$out .=					'<div id="inline_content" style="padding:10px; background:#fff;float:right;">';
+		$out .= 					'<form id="report_form" name="report_form" action="post">';
+		$out .= 					'<p><label for="what_problematic" style="float:right"><small>מה בעייתי בסרטון?:</small></label></br>';
+		$out .=						'<textarea tabindex="4" cols="35" rows="5" value="" id="what_problematic" name="what_problematic"></textarea></p>';
+		$out .= 					'</br>';
+		$out .= 					'<p><label for="what_time" style="float:right"><small>באיזה דקה בסרטון נצפתה הבעיה?</small></label>';
+		$out .= 					'<input type="text" tabindex="3" size="22" id="what_time" name="what_time"></p>';
+		$out .=						'</br><button id="report_send" style="margin-right:20px;float:right">שלח</button>';
+		$out .=						'</form>';	
+		$out .=					'</div>';	
+		$out .= 		'</div>';
 		$out .= '</div>';
 
 		return $out;	

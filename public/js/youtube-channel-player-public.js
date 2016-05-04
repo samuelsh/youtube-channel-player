@@ -75,6 +75,7 @@
 		};
 		
 	
+	
 	$(window).load( function() {
 		
 		window.player = null;
@@ -108,7 +109,7 @@
 //					  listType: 'playlist'
 					  rel: 0,
 					  modestbranding: true,
-					  controls: 0
+					  controls: 1
 				}
 		  });
 		};
@@ -181,7 +182,11 @@
 				index: random_video_num,
 				});
 		}
-			
+		
+		$("#report-video").click(function(){
+			$("#report-block").load('public/partials/youtube-channel-player-public-display.php');
+		});
+		
 		$(".tube_thumbs").click(function(){
 			var playlist_id = $(this).attr("id");
 			console.log(playlist_id);
@@ -250,6 +255,47 @@
 		  });
 		  return result.pageInfo.totalResults;
 	  	}
+		
+	/////////////////////////////////////////////// Popup Contact form methods //////////////////////////////////////////////////////////	
+		$("a.inline.cboxElement").colorbox({inline:true, width:'30%', height:'70%', href:"#inline_content"});
+		$("#report_form").submit(function() { return false; });
+		$('#report_send').on("click", function(){
+			var what_problematic = $('#what_problematic').val();
+			var what_time = $('#what_time').val();
+			var msglen = what_problematic.length;
+			
+			if(msglen == 0) {
+				$("#what_problematic").addClass("error");
+			}
+			else {
+				$("#what_problematic").removeClass("error");
+			}
+			
+			if(msglen != 0) {
+				// if both validate we attempt to send the e-mail
+				// first we hide the submit btn so the user doesnt click twice
+				$("#report_send").replaceWith("<em>sending...</em>");
+
+				$.ajax({
+					type: 'POST',
+					url: '../wp-content/plugins/youtube-channel-player/public/sendmessage.php',
+					data: $("#report_form").serialize(),
+					success: function(data) {
+						if(data == "true") {
+							console.log("Data was sent!");
+							$("#report_form").fadeOut("fast", function(){
+								$(this).before("<strong>ההודעה נשלחה למערכת. תודה :)</strong>");
+								setTimeout(function(){ $('#cboxClose').click(); }, 1000);
+								
+							});
+						}
+						else
+							console.warning('Data send failed!');
+					}
+		        });
+			}
+
+		});
 	  
 	});
 })( jQuery );
