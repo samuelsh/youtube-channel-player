@@ -136,6 +136,15 @@ class Youtube_Channel_Player_Public {
 		$out .= '<p>';
 		$out .= 		'<a class="inline cboxElement" href="#inline_content">Report Video</a>';
 		$out .=	'</p>';
+		$out .= '<p>';
+		$out .= 		'<a id="UCgFXkHaLRgKkBjxQ9PA3xqQ" class="channel_url" href="#" onclick="return false;">הערוץ הבטוח גילאי 2-4</a>';
+		$out .=	'</p>';
+		$out .= '<p>';
+		$out .= 		'<a id="UCUXLXXDOZ1GngW2ofFy0GmQ" class="channel_url"  href="#" onclick="return false;">הערוץ הבטוח גילאי 5-8</a>';
+		$out .=	'</p>';
+		$out .= '<p>';
+		$out .= 		'<a id="UC5KBlL7whXg9nDQU_dsh8Iw" class="channel_url"  href="#" onclick="return false;">הערוץ הבטוח גילאי 9-11</a>';
+		$out .=	'</p>';
 		$out .=			'<div style="display:none" >';
 		$out .=					'<div id="inline_content" style="padding:10px; background:#fff;float:right;">';
 		$out .= 					'<form id="report_form" name="report_form" action="post">';

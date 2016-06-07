@@ -28,7 +28,9 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
+
 	
+	//////////////////////////////////////////// P L U G I N S /////////////////////////////////////////////////////////////////////////////////////
 	  $.fn.disableFor = function(mins, secs) {
 		    var i = [],
 		    play = [];
@@ -74,7 +76,9 @@
 		    });
 		};
 		
-	
+
+		
+/////////////////////////////////////////////////////// Y O U T U B E  M E T H O D S ////////////////////////////////////////////////////////////////
 	
 	$(window).load( function() {
 		
@@ -183,10 +187,11 @@
 				});
 		}
 		
-		$("#report-video").click(function(){
-			$("#report-block").load('public/partials/youtube-channel-player-public-display.php');
-		});
-		
+//		$("#report-video").click(function(){
+//			$("#report-block").load('public/partials/youtube-channel-player-public-display.php');
+//		});
+
+		// Youtube events
 		$(".tube_thumbs").click(function(){
 			var playlist_id = $(this).attr("id");
 			console.log(playlist_id);
@@ -210,7 +215,34 @@
 			$("#ytb_button").disableFor(0, 10);
 		});
 		
-
+		
+		var channel_urls = $(".channel_url");
+		channel_urls.on({
+			"click": function(){
+				var channel_id = $(this).attr('id');
+				$.ajax({
+							url: "https://www.googleapis.com/youtube/v3/playlists",
+							type: 'get',
+							dataType: 'json',
+							data: {
+										part : 'snippet', 
+										channelId: channel_id,
+										maxResults : 50,
+										key: 'AIzaSyAi1i-MN1M-jiSzV1y2qTydlHmM4ZFwjJY', 
+									},
+							success:	function(data) {
+											 //window.total = data.pageInfo.totalResults;
+											 //var arr = $.map(data.items, function(item) { return item });
+											 console.log("Channel loaded:");
+											 console.log(data);
+//											 for (var ytb_item in data){
+//													 console.log(ytb_item.snippet);
+//											 };
+									}
+				  });				
+			}
+		});
+		
 		$("#future_date").countdowntimer({
 			minutes : 100,
 				seconds : 0,
@@ -257,6 +289,7 @@
 	  	}
 		
 	/////////////////////////////////////////////// Popup Contact form methods //////////////////////////////////////////////////////////	
+		
 		$("a.inline.cboxElement").colorbox({inline:true, width:'30%', height:'70%', href:"#inline_content"});
 		$("#report_form").submit(function() { return false; });
 		$('#report_send').on("click", function(){
@@ -272,7 +305,6 @@
 			}
 			
 			if(msglen != 0) {
-				// if both validate we attempt to send the e-mail
 				// first we hide the submit btn so the user doesnt click twice
 				$("#report_send").replaceWith("<em>sending...</em>");
 
