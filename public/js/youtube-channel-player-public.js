@@ -215,8 +215,9 @@
 			$("#ytb_button").disableFor(0, 10);
 		});
 		
-		
+	// Dynamic YouTube Channel loading	
 		var channel_urls = $(".channel_url");
+		var playlist = null;
 		channel_urls.on({
 			"click": function(){
 				var channel_id = $(this).attr('id');
@@ -231,15 +232,18 @@
 										key: 'AIzaSyAi1i-MN1M-jiSzV1y2qTydlHmM4ZFwjJY', 
 									},
 							success:	function(data) {
-											 //window.total = data.pageInfo.totalResults;
-											 //var arr = $.map(data.items, function(item) { return item });
-											 console.log("Channel loaded:");
-											 console.log(data);
-//											 for (var ytb_item in data){
-//													 console.log(ytb_item.snippet);
-//											 };
+											 console.log("New Channel loaded:");
+											 for (var index = 0, len = data.items.length; index < len; index++){
+													 console.log(data.items[index]['snippet'].thumbnails.default.url);
+											 };
 									}
 				  });				
+				  var tube_thumbs = $('.tube_thumbs');
+				  
+				  for(thumb in tube_thumbs){
+					  
+				  }
+			
 			}
 		});
 		
