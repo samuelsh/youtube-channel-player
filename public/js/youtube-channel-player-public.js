@@ -192,7 +192,7 @@
 //		});
 
 		// Youtube events
-		$(".tube_thumbs").click(function(){
+		$("#tube_sidebar").on('click','.tube_thumbs', function(){
 			var playlist_id = $(this).attr("id");
 			console.log(playlist_id);
 			console.log('Playlist selected from sidebar: ' + playlist_id);
@@ -233,16 +233,17 @@
 									},
 							success:	function(data) {
 											 console.log("New Channel loaded:");
-											 for (var index = 0, len = data.items.length; index < len; index++){
-													 console.log(data.items[index]['snippet'].thumbnails.default.url);
-											 };
+											 console.log(data);
+											// Cleaning old thumbnails
+											$('.tube_thumbs').remove();
+											var sidebar = $('#tube_sidebar');  
+											for (var index = 0, len = data.items.length; index < len; index++){
+													var url = data.items[index]['snippet'].thumbnails.default.url;
+													var ytb_id = data.items[index]['id'];	
+													sidebar.append('<img class="tube_thumbs" src="' + url + '" id="' + ytb_id + '" >');
+											}
 									}
-				  });				
-				  var tube_thumbs = $('.tube_thumbs');
-				  
-				  for(thumb in tube_thumbs){
-					  
-				  }
+				  });				 
 			
 			}
 		});
