@@ -187,11 +187,9 @@
 				});
 		}
 		
-//		$("#report-video").click(function(){
-//			$("#report-block").load('public/partials/youtube-channel-player-public-display.php');
-//		});
 
-		// Youtube events
+///////////////////////////////////////////// YouTube Events ////////////////////////////////////////////////////////////////////////////////////////
+		
 		$("#tube_sidebar").on('click','.tube_thumbs', function(){
 			var playlist_id = $(this).attr("id");
 			console.log(playlist_id);
@@ -202,11 +200,8 @@
 		        autoplay: 	1,
 		        index:	0
 			});
-//			var videoList = window.player.getPlaylist();
-//			// to prevent adding new video and for the randomize
-//			window.videoCount = videoList.length; 
-//			console.log("Sidebar: List of all videos in playlist: " + videoList);
 		});
+	
 		
 		$("#ytb_button").click( function(){
 			console.log("Button pressed. Loading new video");
@@ -214,6 +209,7 @@
 			
 			$("#ytb_button").disableFor(0, 10);
 		});
+		
 		
 	// Dynamic YouTube Channel loading	
 		var channel_urls = $(".channel_url");
