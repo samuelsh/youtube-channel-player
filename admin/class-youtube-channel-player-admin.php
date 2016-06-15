@@ -100,4 +100,26 @@ class Youtube_Channel_Player_Admin {
 
 	}
 
+	/**
+	 * YouTube channel plugin settings page
+	 * 
+	 * @author samuelsh
+	 */
+	public function youtube_channel_settings_page() {
+		include_once plugin_dir_path( __FILE__ ) . 'partials/youtube-channel-player-admin-display.php';
+	}
+	
+	
+	/**
+	 * Register plugin settings page on Admin->Settings menu
+	 * 
+	 * @author samuelsh
+	 */
+	public function youtube_admin_settings(){
+		
+		if ( !current_user_can( 'manage_options' ) )  {
+			return;
+		}
+		add_options_page( 'Settings Page', 'YouTube Channel Player', 'manage_options', 'ytb_channel_settings', array($this,'youtube_channel_settings_page') );
+	}
 }

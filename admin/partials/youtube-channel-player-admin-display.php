@@ -11,6 +11,10 @@
  * @package    Youtube_Channel_Player
  * @subpackage Youtube_Channel_Player/admin/partials
  */
+
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<div class="wrap">
+	<p>Here is where the form would go if I actually had options.</p>
+</div>
