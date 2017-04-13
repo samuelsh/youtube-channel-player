@@ -120,6 +120,6 @@ class Youtube_Channel_Player_Admin {
 		if ( !current_user_can( 'manage_options' ) )  {
 			return;
 		}
-		add_options_page( 'Settings Page', 'YouTube Channel Player', 'manage_options', 'ytb_channel_settings', array($this,'youtube_channel_settings_page') );
+		add_options_page( 'YouTube Channel Player Settings', 'YouTube Channel Player', 'manage_options', 'ytb_channel_settings', array($this,'youtube_channel_settings_page') );
 	}
 }
